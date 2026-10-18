@@ -1,9 +1,21 @@
 {%- liquid
   assign collection = section.settings.collection
-  if collection == blank
+  if collection == blank and section.settings.fallback_all
     assign collection = collections['all']
   endif
+  assign hide_section = false
+  if collection == blank or collection.products_count == 0
+    if section.settings.fallback_all == false
+      assign hide_section = true
+    endif
+  endif
 -%}
+{%- if hide_section and request.design_mode -%}
+  <section class="section" {{ section.shopify_attributes }}>
+    <div class="wrap"><p class="empty">{{ 'collections.pick_collection' | t: title: section.settings.heading }}</p></div>
+  </section>
+{%- endif -%}
+{%- unless hide_section -%}
 <section class="section" id="shop-{{ section.id }}" {{ section.shopify_attributes }}>
   <div class="wrap">
     <div class="sec-head">
@@ -31,12 +43,14 @@
     </div>
   </div>
 </section>
+{%- endunless -%}
 
 {% schema %}
 {
   "name": "Colección destacada",
   "settings": [
     { "type": "collection", "id": "collection", "label": "Colección" },
+    { "type": "checkbox", "id": "fallback_all", "label": "Si no hay colección, mostrar todos los productos", "default": true, "info": "Desactívalo para secciones como Juguetes: la sección se oculta hasta que tenga productos." },
     { "type": "text", "id": "eyebrow", "label": "Etiqueta superior", "default": "Drop 04" },
     { "type": "text", "id": "heading", "label": "Título", "default": "Novedades" },
     { "type": "text", "id": "link_label", "label": "Texto del enlace", "default": "Ver todo" },

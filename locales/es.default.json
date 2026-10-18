@@ -71,7 +71,8 @@
       "one": "{{ count }} producto",
       "other": "{{ count }} productos"
     },
-    "sort_by": "Ordenar por"
+    "sort_by": "Ordenar por",
+    "pick_collection": "Elige la colección de “{{ title }}” en esta sección. Se mostrará cuando tenga productos."
   },
   "newsletter": {
     "email": "Correo",

@@ -154,12 +154,25 @@
         "text": "Únete a la lista para acceso anticipado y 10% de descuento en tu primera compra.",
         "button": "Unirme"
       }
+    },
+    "toys": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "juguetes",
+        "fallback_all": false,
+        "eyebrow": "Para los peques",
+        "heading": "Juguetes",
+        "link_label": "Ver todos los juguetes",
+        "limit": 4,
+        "quick_add": true
+      }
     }
   },
   "order": [
     "hero",
     "new",
     "featured",
+    "toys",
     "look",
     "values",
     "news"

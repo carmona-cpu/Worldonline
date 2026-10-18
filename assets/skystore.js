@@ -139,6 +139,21 @@
     var priceEl = root.querySelector('[data-price]');
     var addBtn = form.querySelector('[data-add-button]');
     var isPage = !!root.closest('.pdp--page');
+    var bar = root.querySelector('[data-buybar]');
+    var barPrice = bar && bar.querySelector('[data-buybar-price]');
+    var barBtn = bar && bar.querySelector('[data-buybar-btn]');
+    if (bar && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        var e = entries[0];
+        var past = !e.isIntersecting && e.boundingClientRect.top < 0;
+        bar.classList.toggle('show', past);
+        bar.setAttribute('aria-hidden', past ? 'false' : 'true');
+        barBtn.tabIndex = past ? 0 : -1;
+      }).observe(addBtn);
+      barBtn.addEventListener('click', function () {
+        if (form.requestSubmit) form.requestSubmit(addBtn); else addBtn.click();
+      });
+    }
 
     function selected() {
       return groups.map(function (g) {
@@ -175,6 +190,7 @@
       if (!v) {
         addBtn.disabled = true;
         addBtn.textContent = S.strings.unavailable;
+        if (barBtn) { barBtn.disabled = true; barBtn.textContent = S.strings.unavailable; }
         return;
       }
       idInput.value = v.id;
@@ -182,6 +198,8 @@
       if (priceEl) priceEl.innerHTML = v.price_html;
       addBtn.disabled = !v.available;
       addBtn.textContent = v.available ? S.strings.addToCart : S.strings.soldOut;
+      if (barPrice) barPrice.innerHTML = v.price_html;
+      if (barBtn) { barBtn.disabled = !v.available; barBtn.textContent = v.available ? S.strings.addShort : S.strings.soldOut; }
       if (v.media_id) showMedia(root, String(v.media_id));
       if (isPage && window.history.replaceState) {
         window.history.replaceState({}, '', product.url + '?variant=' + v.id);
@@ -252,8 +270,20 @@
     });
   }
 
+  /* ocultar categorías que apuntan a secciones vacías (ocultas) */
+  function pruneCategories() {
+    $$('.cat[href^="#"]').forEach(function (a) {
+      var id = a.getAttribute('href').slice(1);
+      if (id && !document.getElementById(id)) a.hidden = true;
+    });
+    $$('.cats').forEach(function (sec) {
+      if (!$$('.cat', sec).some(function (a) { return !a.hidden; })) sec.hidden = true;
+    });
+  }
+
   function init() {
     $$('[data-product-root]').forEach(initProduct);
+    pruneCategories();
     loadRecommendations();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();

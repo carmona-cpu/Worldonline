@@ -1,0 +1,58 @@
+{%- comment -%}
+  Menú visual de categorías: mosaicos con número, nombre y foto opcional.
+  En el celular se desliza de lado. Cada mosaico lleva a una sección de la
+  portada (#frio, #juguetes…) o a una colección.
+{%- endcomment -%}
+<section class="section cats" id="categorias" {{ section.shopify_attributes }}>
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<span class="label">{{ section.settings.eyebrow }}</span>{%- endif -%}
+        <h2>{{ section.settings.heading }}</h2>
+      </div>
+    </div>
+    <div class="cat-rail">
+      {%- for block in section.blocks -%}
+        {%- assign url = block.settings.link | default: '#' -%}
+        {%- if block.settings.collection != blank and block.settings.link == blank -%}
+          {%- assign url = block.settings.collection.url -%}
+        {%- endif -%}
+        <a class="cat{% if block.settings.image != blank %} cat--img{% endif %}{% if block.settings.dark %} cat--dark{% endif %}" href="{{ url }}" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            {%- assign img_alt = block.settings.title | escape -%}
+            {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '320, 480, 640, 800', sizes: '(min-width: 1000px) 20vw, 60vw', alt: img_alt }}
+          {%- endif -%}
+          <span class="cat-num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+          <span class="cat-title">{{ block.settings.title }}</span>
+          {%- if block.settings.subtitle != blank -%}<span class="cat-sub">{{ block.settings.subtitle }}</span>{%- endif -%}
+          <span class="cat-arrow" aria-hidden="true">→</span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Categorías",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Etiqueta superior", "default": "Compra por categoría" },
+    { "type": "text", "id": "heading", "label": "Título", "default": "Encuentra lo tuyo" }
+  ],
+  "blocks": [
+    {
+      "type": "category", "name": "Categoría",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Nombre", "default": "Categoría" },
+        { "type": "text", "id": "subtitle", "label": "Texto corto" },
+        { "type": "image_picker", "id": "image", "label": "Foto (opcional)", "info": "Formato vertical. Sin foto el mosaico usa el color de fondo." },
+        { "type": "checkbox", "id": "dark", "label": "Fondo oscuro", "default": false },
+        { "type": "collection", "id": "collection", "label": "Colección (opcional)" },
+        { "type": "url", "id": "link", "label": "Enlace", "info": "Para ir a una sección de la portada escribe #frio, #juguetes, #construccion, #gym o #virales." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Categorías" }]
+}
+{% endschema %}

@@ -58,7 +58,8 @@
   endif
 -%}
 {%- if shown > 0 or show_samples -%}
-<section class="section" id="shop-{{ section.id }}" {{ section.shopify_attributes }}>
+{%- assign anchor = section.settings.anchor | default: section.id | handle -%}
+<section class="section shelf" id="{{ anchor }}" {{ section.shopify_attributes }}>
   <div class="wrap">
     <div class="sec-head">
       <div>
@@ -69,7 +70,7 @@
         <a href="{{ link_url }}">{{ section.settings.link_label }}</a>
       {%- endif -%}
     </div>
-    <div class="grid">
+    <div class="grid grid--rail">
       {%- if show_samples -%}
         {%- for i in (1..4) -%}
           {%- assign sample = i | plus: 2 -%}
@@ -153,6 +154,12 @@
       "id": "quick_add",
       "label": "Mostrar botón de agregar rápido",
       "default": true
+    },
+    {
+      "type": "text",
+      "id": "anchor",
+      "label": "Ancla (para el menú de categorías)",
+      "info": "Ejemplo: frio. Así el enlace #frio lleva a esta sección."
     }
   ],
   "presets": [

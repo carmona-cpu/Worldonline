@@ -158,6 +158,14 @@
         {%- endif -%}
       {%- endform -%}
 
+      {%- if page -%}
+        <div class="buybar" data-buybar aria-hidden="true">
+          <div><b>{{ product.title }}</b><span data-buybar-price>{% render 'price', variant: current_variant %}</span></div>
+          <button type="button" class="btn btn-dark" data-buybar-btn tabindex="-1" {% unless current_variant.available %}disabled{% endunless %}>
+            {%- if current_variant.available -%}{{ 'products.add_short' | t }}{%- else -%}{{ 'products.sold_out' | t }}{%- endif -%}
+          </button>
+        </div>
+      {%- endif -%}
       <script type="application/json" data-product-json>
         {
           "url": {{ product.url | json }},

@@ -36,7 +36,8 @@
     "sold_out": "Agotado",
     "unavailable": "No disponible",
     "view_n": "Vista {{ n }}",
-    "views": "Vistas"
+    "views": "Vistas",
+    "add_short": "Agregar"
   },
   "cart": {
     "added": "Agregado a la bolsa",

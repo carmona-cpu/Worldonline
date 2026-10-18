@@ -19,7 +19,8 @@
         "link_label": "Ver todo",
         "limit": 4,
         "quick_add": true,
-        "exclude_keywords": "ropa de frio, ropa de frío, frio, frío, invierno, abrigo, chaqueta, chamarra, sudadera, hoodie, gorro, bufanda, guantes, winter, jacket, coat, juguete, toy, viral, tiktok, trending, tendencia, construccion, construcción, workwear, ropa de trabajo, industrial, reflectivo, reflectante, alta visibilidad, botas de trabajo, overol, chaleco de seguridad, gym, gimnasio, fitness, entrenamiento, deportivo, deportiva, activewear, leggings, licra"
+        "exclude_keywords": "ropa de frio, ropa de frío, frio, frío, invierno, abrigo, chaqueta, chamarra, sudadera, hoodie, gorro, bufanda, guantes, winter, jacket, coat, juguete, toy, viral, tiktok, trending, tendencia, construccion, construcción, workwear, ropa de trabajo, industrial, reflectivo, reflectante, alta visibilidad, botas de trabajo, overol, chaleco de seguridad, gym, gimnasio, fitness, entrenamiento, deportivo, deportiva, activewear, leggings, licra",
+        "anchor": "novedades"
       }
     },
     "featured": {
@@ -165,7 +166,8 @@
         "link_label": "Ver todos los juguetes",
         "limit": 4,
         "quick_add": true,
-        "match_keywords": "juguete, toy"
+        "match_keywords": "juguete, toy",
+        "anchor": "juguetes"
       }
     },
     "cold": {
@@ -177,7 +179,8 @@
         "heading": "Ropa de frío",
         "link_label": "Ver toda la ropa de frío",
         "limit": 4,
-        "quick_add": true
+        "quick_add": true,
+        "anchor": "frio"
       }
     },
     "viral": {
@@ -189,7 +192,8 @@
         "heading": "Cosas virales",
         "link_label": "Ver todo lo viral",
         "limit": 4,
-        "quick_add": true
+        "quick_add": true,
+        "anchor": "virales"
       }
     },
     "work": {
@@ -201,7 +205,8 @@
         "heading": "Ropa de construcción",
         "link_label": "Ver toda la ropa de trabajo",
         "limit": 4,
-        "quick_add": true
+        "quick_add": true,
+        "anchor": "construccion"
       }
     },
     "gym": {
@@ -213,12 +218,75 @@
         "heading": "Gym",
         "link_label": "Ver todo para el gym",
         "limit": 4,
-        "quick_add": true
+        "quick_add": true,
+        "anchor": "gym"
       }
+    },
+    "cats": {
+      "type": "category-nav",
+      "settings": {
+        "eyebrow": "Compra por categoría",
+        "heading": "Encuentra lo tuyo"
+      },
+      "blocks": {
+        "c1": {
+          "type": "category",
+          "settings": {
+            "title": "Ropa de frío",
+            "subtitle": "Abrigos, sudaderas y gorros",
+            "link": "#frio",
+            "dark": true
+          }
+        },
+        "c2": {
+          "type": "category",
+          "settings": {
+            "title": "Juguetes",
+            "subtitle": "Para los peques",
+            "link": "#juguetes",
+            "dark": false
+          }
+        },
+        "c3": {
+          "type": "category",
+          "settings": {
+            "title": "Construcción",
+            "subtitle": "Ropa de trabajo resistente",
+            "link": "#construccion",
+            "dark": true
+          }
+        },
+        "c4": {
+          "type": "category",
+          "settings": {
+            "title": "Gym",
+            "subtitle": "Para entrenar",
+            "link": "#gym",
+            "dark": false
+          }
+        },
+        "c5": {
+          "type": "category",
+          "settings": {
+            "title": "Virales",
+            "subtitle": "Lo que se ve en TikTok",
+            "link": "#virales",
+            "dark": true
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5"
+      ]
     }
   },
   "order": [
     "hero",
+    "cats",
     "new",
     "featured",
     "cold",

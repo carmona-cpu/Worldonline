@@ -36,7 +36,8 @@
     "sold_out": "Sold out",
     "unavailable": "Unavailable",
     "view_n": "View {{ n }}",
-    "views": "Views"
+    "views": "Views",
+    "add_short": "Add"
   },
   "cart": {
     "added": "Added to bag",

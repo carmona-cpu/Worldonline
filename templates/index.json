@@ -19,7 +19,7 @@
         "link_label": "Ver todo",
         "limit": 4,
         "quick_add": true,
-        "exclude_keywords": "juguete, toy"
+        "exclude_keywords": "juguete, toy, ropa de frio, ropa de frío, frio, frío, invierno, abrigo, chaqueta, chamarra, sudadera, hoodie, gorro, bufanda, guantes, winter, jacket, coat, viral, tiktok, trending, tendencia"
       }
     },
     "featured": {
@@ -167,13 +167,39 @@
         "quick_add": true,
         "match_keywords": "juguete, toy"
       }
+    },
+    "cold": {
+      "type": "featured-collection",
+      "settings": {
+        "fallback_all": false,
+        "match_keywords": "ropa de frio, ropa de frío, frio, frío, invierno, abrigo, chaqueta, chamarra, sudadera, hoodie, gorro, bufanda, guantes, winter, jacket, coat",
+        "eyebrow": "Temporada de frío",
+        "heading": "Ropa de frío",
+        "link_label": "Ver toda la ropa de frío",
+        "limit": 4,
+        "quick_add": true
+      }
+    },
+    "viral": {
+      "type": "featured-collection",
+      "settings": {
+        "fallback_all": false,
+        "match_keywords": "viral, tiktok, trending, tendencia",
+        "eyebrow": "Lo que todos quieren",
+        "heading": "Cosas virales",
+        "link_label": "Ver todo lo viral",
+        "limit": 4,
+        "quick_add": true
+      }
     }
   },
   "order": [
     "hero",
     "new",
     "featured",
+    "cold",
     "toys",
+    "viral",
     "look",
     "values",
     "news"

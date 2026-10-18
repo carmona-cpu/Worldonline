@@ -1,5 +1,11 @@
 <section class="section section--flush-top" id="product-{{ section.id }}" {{ section.shopify_attributes }}>
-  {% render 'product-main', product: section.settings.product, section: section, title_tag: 'h2' %}
+  {%- liquid
+    assign featured_product = section.settings.product
+    if featured_product == blank
+      assign featured_product = collections['all'].products.first
+    endif
+  -%}
+  {% render 'product-main', product: featured_product, section: section, title_tag: 'h2' %}
 </section>
 
 {% schema %}

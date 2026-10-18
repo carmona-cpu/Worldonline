@@ -1,4 +1,9 @@
-{%- assign collection = section.settings.collection -%}
+{%- liquid
+  assign collection = section.settings.collection
+  if collection == blank
+    assign collection = collections['all']
+  endif
+-%}
 <section class="section" id="shop-{{ section.id }}" {{ section.shopify_attributes }}>
   <div class="wrap">
     <div class="sec-head">

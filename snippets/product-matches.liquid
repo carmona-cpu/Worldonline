@@ -1,7 +1,7 @@
 {%- comment -%}
   Escribe "match" si el producto coincide con alguna palabra clave.
-  Revisa el tipo de producto, las etiquetas, la categoría de Shopify y los
-  títulos de las colecciones donde está el producto (sin importar mayúsculas).
+  Revisa el nombre del producto, el tipo, las etiquetas, la categoría de Shopify y
+  los títulos de las colecciones donde está el producto (sin importar mayúsculas).
   Parámetros:
   - product
   - keywords: texto separado por comas, por ejemplo "juguete, toy"
@@ -10,6 +10,10 @@
   assign words = keywords | downcase | split: ','
   assign fields = product.tags | join: '|' | downcase
   assign fields = fields | append: '|' | append: product.type | downcase
+  if match_title != false
+    assign ttl = product.title | downcase
+    assign fields = fields | append: '|' | append: ttl
+  endif
   if product.category
     assign cat = product.category.name | downcase
     assign fields = fields | append: '|' | append: cat

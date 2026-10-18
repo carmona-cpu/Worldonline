@@ -19,7 +19,7 @@
         "link_label": "Ver todo",
         "limit": 4,
         "quick_add": true,
-        "exclude_keywords": "ropa de frio, ropa de frío, frio, frío, invierno, abrigo, chaqueta, chamarra, sudadera, hoodie, gorro, bufanda, guantes, winter, jacket, coat, juguete, toy, viral, tiktok, trending, tendencia, construccion, construcción, workwear, ropa de trabajo, industrial, reflectivo, reflectante, alta visibilidad, botas de trabajo, overol, chaleco de seguridad, gym, gimnasio, fitness, entrenamiento, deportivo, deportiva, activewear, leggings, licra",
+        "exclude_keywords": "ropa de frio, ropa de frío, frio, frío, invierno, abrigo, chaqueta, chamarra, sudadera, hoodie, gorro, bufanda, guantes, térmica, termica, winter, jacket, coat, sweatshirt, sweater, fleece, gloves, thermal, heated, beanie, scarf, puffer, parka, juguete, toy, toys, building block, lego, peluche, plush, puzzle, rompecabezas, construccion, construcción, workwear, ropa de trabajo, industrial, reflectivo, reflectante, alta visibilidad, botas de trabajo, overol, chaleco de seguridad, work boots, safety vest, hi-vis, high visibility, coverall, overalls, work pants, steel toe, gym, gimnasio, fitness, entrenamiento, deportivo, deportiva, activewear, leggings, licra, workout, yoga, running, training, compression, sports bra, viral, tiktok, trending, tendencia",
         "anchor": "novedades"
       }
     },
@@ -166,7 +166,7 @@
         "link_label": "Ver todos los juguetes",
         "limit": 4,
         "quick_add": true,
-        "match_keywords": "juguete, toy",
+        "match_keywords": "juguete, toy, toys, building block, lego, peluche, plush, puzzle, rompecabezas",
         "anchor": "juguetes"
       }
     },
@@ -174,7 +174,7 @@
       "type": "featured-collection",
       "settings": {
         "fallback_all": false,
-        "match_keywords": "ropa de frio, ropa de frío, frio, frío, invierno, abrigo, chaqueta, chamarra, sudadera, hoodie, gorro, bufanda, guantes, winter, jacket, coat",
+        "match_keywords": "ropa de frio, ropa de frío, frio, frío, invierno, abrigo, chaqueta, chamarra, sudadera, hoodie, gorro, bufanda, guantes, térmica, termica, winter, jacket, coat, sweatshirt, sweater, fleece, gloves, thermal, heated, beanie, scarf, puffer, parka",
         "eyebrow": "Temporada de frío",
         "heading": "Ropa de frío",
         "link_label": "Ver toda la ropa de frío",
@@ -200,7 +200,7 @@
       "type": "featured-collection",
       "settings": {
         "fallback_all": false,
-        "match_keywords": "construccion, construcción, workwear, ropa de trabajo, industrial, reflectivo, reflectante, alta visibilidad, botas de trabajo, overol, chaleco de seguridad",
+        "match_keywords": "construccion, construcción, workwear, ropa de trabajo, industrial, reflectivo, reflectante, alta visibilidad, botas de trabajo, overol, chaleco de seguridad, work boots, safety vest, hi-vis, high visibility, coverall, overalls, work pants, steel toe",
         "eyebrow": "Hecha para aguantar",
         "heading": "Ropa de construcción",
         "link_label": "Ver toda la ropa de trabajo",
@@ -213,7 +213,7 @@
       "type": "featured-collection",
       "settings": {
         "fallback_all": false,
-        "match_keywords": "gym, gimnasio, fitness, entrenamiento, deportivo, deportiva, activewear, leggings, licra",
+        "match_keywords": "gym, gimnasio, fitness, entrenamiento, deportivo, deportiva, activewear, leggings, licra, workout, yoga, running, training, compression, sports bra",
         "eyebrow": "Entrena con estilo",
         "heading": "Gym",
         "link_label": "Ver todo para el gym",

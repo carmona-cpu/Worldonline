@@ -14,13 +14,12 @@
       {%- if cart.item_count > 0 -%}
         <div class="cart-summary">
           {%- if section.settings.show_note -%}
-            <form action="{{ routes.cart_url }}" method="post" class="cart-note">
+            <div class="cart-note">
               <label class="label" for="CartNote">{{ 'cart.note' | t }}</label>
-              <textarea id="CartNote" name="note" data-cart-note>{{ cart.note }}</textarea>
-              <button type="submit" name="update" class="label" style="justify-self:start;margin-top:6px;text-decoration:underline">{{ 'cart.save_note' | t }}</button>
-            </form>
+              <textarea id="CartNote" name="note" form="CheckoutForm-page" data-cart-note>{{ cart.note }}</textarea>
+            </div>
           {%- endif -%}
-          {% render 'cart-totals' %}
+          {% render 'cart-totals', form_suffix: 'page' %}
         </div>
       {%- endif -%}
     </div>

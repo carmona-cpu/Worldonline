@@ -26,6 +26,11 @@
     {%- endif -%}
     <div class="legal">
       <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name | link_to: routes.root_url }}</span>
+      {%- if shop.policies.size > 0 -%}
+        <nav aria-label="{{ 'footer.policies' | t }}" style="display:flex;gap:14px;flex-wrap:wrap">
+          {%- for policy in shop.policies -%}<a href="{{ policy.url }}">{{ policy.title }}</a>{%- endfor -%}
+        </nav>
+      {%- endif -%}
       {%- if section.settings.show_payment_icons -%}
         <ul class="payment-icons" aria-label="{{ 'footer.payment_methods' | t }}">
           {%- for type in shop.enabled_payment_types -%}

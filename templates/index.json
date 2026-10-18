@@ -19,7 +19,7 @@
         "link_label": "Ver todo",
         "limit": 4,
         "quick_add": true,
-        "exclude_keywords": "juguete, toy, ropa de frio, ropa de frío, frio, frío, invierno, abrigo, chaqueta, chamarra, sudadera, hoodie, gorro, bufanda, guantes, winter, jacket, coat, viral, tiktok, trending, tendencia"
+        "exclude_keywords": "ropa de frio, ropa de frío, frio, frío, invierno, abrigo, chaqueta, chamarra, sudadera, hoodie, gorro, bufanda, guantes, winter, jacket, coat, juguete, toy, viral, tiktok, trending, tendencia, construccion, construcción, workwear, ropa de trabajo, industrial, reflectivo, reflectante, alta visibilidad, botas de trabajo, overol, chaleco de seguridad, gym, gimnasio, fitness, entrenamiento, deportivo, deportiva, activewear, leggings, licra"
       }
     },
     "featured": {
@@ -191,6 +191,30 @@
         "limit": 4,
         "quick_add": true
       }
+    },
+    "work": {
+      "type": "featured-collection",
+      "settings": {
+        "fallback_all": false,
+        "match_keywords": "construccion, construcción, workwear, ropa de trabajo, industrial, reflectivo, reflectante, alta visibilidad, botas de trabajo, overol, chaleco de seguridad",
+        "eyebrow": "Hecha para aguantar",
+        "heading": "Ropa de construcción",
+        "link_label": "Ver toda la ropa de trabajo",
+        "limit": 4,
+        "quick_add": true
+      }
+    },
+    "gym": {
+      "type": "featured-collection",
+      "settings": {
+        "fallback_all": false,
+        "match_keywords": "gym, gimnasio, fitness, entrenamiento, deportivo, deportiva, activewear, leggings, licra",
+        "eyebrow": "Entrena con estilo",
+        "heading": "Gym",
+        "link_label": "Ver todo para el gym",
+        "limit": 4,
+        "quick_add": true
+      }
     }
   },
   "order": [
@@ -199,6 +223,8 @@
     "featured",
     "cold",
     "toys",
+    "work",
+    "gym",
     "viral",
     "look",
     "values",

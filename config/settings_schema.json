@@ -68,7 +68,7 @@
         "type": "textarea",
         "id": "color_swatches",
         "label": "Colores de muestras",
-        "default": "Gris: #b9b8b4\nNegro: #2a2927\nHueso: #e9e2d3\nCacao: #4a3326\nArena: #d8c7a8\nSalvia: #9aa58c\nBlanco: #ffffff",
+        "default": "Negro: #1c1b1a\nBlanco: #ffffff\nGris: #b9b8b4\nGris oscuro: #5a5855\nHueso: #e9e2d3\nBeige: #d9c8a9\nArena: #d8c7a8\nCafé: #5b3a29\nCacao: #4a3326\nAzul: #2f5d9e\nAzul marino: #1f2a44\nCeleste: #9cc3e6\nRojo: #b3261e\nVino: #6d1f2b\nRosa: #f2b8c6\nMorado: #6b4c9a\nVerde: #3f7d4e\nVerde oliva: #6b6b3a\nSalvia: #9aa58c\nAmarillo: #f2c94c\nNaranja: #e8782a\nNaranja reflectivo: #ff6a00\nAmarillo neón: #dfff4f",
         "info": "Un color por línea: Nombre: #hex. Solo hace falta si no usas las muestras de color nativas de Shopify."
       }
     ]

@@ -17,7 +17,8 @@
     "search": "Search"
   },
   "footer": {
-    "payment_methods": "Payment methods"
+    "payment_methods": "Payment methods",
+    "policies": "Políticas"
   },
   "products": {
     "add_to_cart": "Add to bag",
@@ -58,7 +59,8 @@
     "subtotal": "Subtotal",
     "taxes_note": "Taxes and shipping calculated at checkout.",
     "title": "Your bag",
-    "view_cart": "View bag"
+    "view_cart": "View bag",
+    "buy_now_note": "Pago seguro con Shopify"
   },
   "collections": {
     "all": "Collections",
@@ -92,5 +94,11 @@
     },
     "submit": "Search",
     "title": "Search"
+  },
+  "password": {
+    "notify": "Notify me",
+    "owner": "Store owner? Enter with password",
+    "password": "Password",
+    "enter": "Enter"
   }
 }

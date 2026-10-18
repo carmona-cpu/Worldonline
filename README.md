@@ -60,4 +60,6 @@ locales/                   Textos en español e inglés
   (Configuración → Checkout).
 - Las fuentes se cargan desde Google Fonts para conservar el ancho variable de Archivo, que no está en la
   biblioteca de fuentes de Shopify.
+- Las secciones automáticas (Ropa de frío, Juguetes, Construcción, Gym, Virales) revisan hasta 250 productos.
+  Con más productos, crea colecciones automáticas en Shopify y elígelas en cada sección.
 - La barra de envío gratis usa la moneda principal de la tienda; con varias monedas el monto no se convierte.

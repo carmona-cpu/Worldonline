@@ -10,6 +10,7 @@
 -%}
 {%- capture cards -%}
   {%- if source != blank -%}
+    {%- paginate source.products by 250 -%}
     {%- for product in source.products -%}
       {%- if shown >= limit -%}{%- break -%}{%- endif -%}
       {%- liquid
@@ -36,6 +37,7 @@
         {%- assign shown = shown | plus: 1 -%}
       {%- endif -%}
     {%- endfor -%}
+    {%- endpaginate -%}
   {%- endif -%}
 {%- endcapture -%}
 {%- liquid

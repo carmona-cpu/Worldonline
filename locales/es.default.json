@@ -17,7 +17,8 @@
     "search": "Buscar"
   },
   "footer": {
-    "payment_methods": "Métodos de pago"
+    "payment_methods": "Métodos de pago",
+    "policies": "Políticas"
   },
   "products": {
     "add_to_cart": "Agregar a la bolsa",
@@ -58,7 +59,8 @@
     "subtotal": "Subtotal",
     "taxes_note": "Impuestos y envío se calculan al pagar.",
     "title": "Tu bolsa",
-    "view_cart": "Ver bolsa"
+    "view_cart": "Ver bolsa",
+    "buy_now_note": "Pago seguro con Shopify"
   },
   "collections": {
     "all": "Colecciones",
@@ -92,5 +94,11 @@
     },
     "submit": "Buscar",
     "title": "Buscar"
+  },
+  "password": {
+    "notify": "Avísame",
+    "owner": "¿Eres el dueño? Entra con contraseña",
+    "password": "Contraseña",
+    "enter": "Entrar"
   }
 }

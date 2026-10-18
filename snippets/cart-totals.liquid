@@ -30,7 +30,8 @@
 <div class="total"><span>{{ 'cart.subtotal' | t }}</span><span>{{ cart.total_price | money_with_currency }}</span></div>
 <p class="tax-note">{{ 'cart.taxes_note' | t }}</p>
 {%- if cart.item_count > 0 -%}
-  <form action="{{ routes.cart_url }}" method="post" style="display:grid">
+  <form action="{{ routes.cart_url }}" method="post" style="display:grid;gap:8px" id="CheckoutForm-{{ form_suffix | default: 'main' }}">
     <button type="submit" name="checkout" class="btn btn-dark">{{ 'cart.checkout' | t }}</button>
+    <span class="tax-note" style="text-align:center">🔒 {{ 'cart.buy_now_note' | t }}</span>
   </form>
 {%- endif -%}

@@ -7,7 +7,7 @@
     {% render 'cart-lines' %}
   </div>
   <div class="d-foot">
-    {% render 'cart-totals' %}
+    {% render 'cart-totals', form_suffix: 'drawer' %}
     <a href="{{ routes.cart_url }}" class="label" style="text-align:center">{{ 'cart.view_cart' | t }}</a>
   </div>
 </div>

@@ -3,7 +3,6 @@
     "main": {
       "type": "main-product",
       "settings": {
-        "eyebrow": "",
         "show_description": true,
         "show_quantity": true,
         "show_dynamic_checkout": true

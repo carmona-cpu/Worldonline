@@ -18,7 +18,8 @@
         "heading": "Novedades",
         "link_label": "Ver todo",
         "limit": 4,
-        "quick_add": true
+        "quick_add": true,
+        "exclude_keywords": "juguete, toy"
       }
     },
     "featured": {
@@ -158,13 +159,13 @@
     "toys": {
       "type": "featured-collection",
       "settings": {
-        "collection": "juguetes",
         "fallback_all": false,
         "eyebrow": "Para los peques",
         "heading": "Juguetes",
         "link_label": "Ver todos los juguetes",
         "limit": 4,
-        "quick_add": true
+        "quick_add": true,
+        "match_keywords": "juguete, toy"
       }
     }
   },

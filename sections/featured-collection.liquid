@@ -1,63 +1,162 @@
 {%- liquid
-  assign collection = section.settings.collection
-  if collection == blank and section.settings.fallback_all
-    assign collection = collections['all']
+  assign source = section.settings.collection
+  if source == blank
+    if section.settings.fallback_all or section.settings.match_keywords != blank
+      assign source = collections['all']
+    endif
   endif
-  assign hide_section = false
-  if collection == blank or collection.products_count == 0
-    if section.settings.fallback_all == false
-      assign hide_section = true
+  assign limit = section.settings.limit
+  assign shown = 0
+-%}
+{%- capture cards -%}
+  {%- if source != blank -%}
+    {%- for product in source.products -%}
+      {%- if shown >= limit -%}{%- break -%}{%- endif -%}
+      {%- liquid
+        assign keep = true
+        if section.settings.collection == blank and section.settings.match_keywords != blank
+          capture m
+            render 'product-matches', product: product, keywords: section.settings.match_keywords
+          endcapture
+          if m == blank
+            assign keep = false
+          endif
+        endif
+        if keep and section.settings.exclude_keywords != blank
+          capture x
+            render 'product-matches', product: product, keywords: section.settings.exclude_keywords
+          endcapture
+          if x != blank
+            assign keep = false
+          endif
+        endif
+      -%}
+      {%- if keep -%}
+        {% render 'product-card', product: product, index: shown, quick_add: section.settings.quick_add %}
+        {%- assign shown = shown | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endcapture -%}
+{%- liquid
+  assign show_samples = false
+  if shown == 0 and section.settings.fallback_all and collections['all'].products_count == 0
+    assign show_samples = true
+  endif
+  assign link_url = section.settings.link
+  if link_url == blank
+    if section.settings.collection != blank
+      assign link_url = section.settings.collection.url
+    elsif section.settings.match_keywords != blank
+      assign first_kw = section.settings.match_keywords | split: ',' | first | strip | url_encode
+      assign link_url = routes.search_url | append: '?type=product&q=' | append: first_kw
+    else
+      assign link_url = routes.all_products_collection_url
     endif
   endif
 -%}
-{%- if hide_section and request.design_mode -%}
-  <section class="section" {{ section.shopify_attributes }}>
-    <div class="wrap"><p class="empty">{{ 'collections.pick_collection' | t: title: section.settings.heading }}</p></div>
-  </section>
-{%- endif -%}
-{%- unless hide_section -%}
+{%- if shown > 0 or show_samples -%}
 <section class="section" id="shop-{{ section.id }}" {{ section.shopify_attributes }}>
   <div class="wrap">
     <div class="sec-head">
       <div>
         {%- if section.settings.eyebrow != blank -%}<span class="label">{{ section.settings.eyebrow }}</span>{%- endif -%}
-        <h2>{{ section.settings.heading | default: collection.title }}</h2>
+        <h2>{{ section.settings.heading | default: source.title }}</h2>
       </div>
       {%- if section.settings.link_label != blank -%}
-        <a href="{{ section.settings.link | default: collection.url | default: routes.all_products_collection_url }}">{{ section.settings.link_label }}</a>
+        <a href="{{ link_url }}">{{ section.settings.link_label }}</a>
       {%- endif -%}
     </div>
     <div class="grid">
-      {%- if collection != blank and collection.products_count > 0 -%}
-        {%- for product in collection.products limit: section.settings.limit -%}
-          {% render 'product-card', product: product, index: forloop.index0, quick_add: section.settings.quick_add %}
-        {%- endfor -%}
-      {%- else -%}
+      {%- if show_samples -%}
         {%- for i in (1..4) -%}
-          {%- liquid
-            assign sample = i | plus: 2
-          -%}
+          {%- assign sample = i | plus: 2 -%}
           {% render 'product-card', product: blank, index: forloop.index0, sample: sample %}
         {%- endfor -%}
+      {%- else -%}
+        {{ cards }}
       {%- endif -%}
     </div>
   </div>
 </section>
-{%- endunless -%}
+{%- elsif request.design_mode -%}
+  <section class="section" {{ section.shopify_attributes }}>
+    <div class="wrap"><p class="empty">{{ 'collections.pick_collection' | t: title: section.settings.heading }}</p></div>
+  </section>
+{%- endif -%}
 
 {% schema %}
 {
   "name": "Colección destacada",
   "settings": [
-    { "type": "collection", "id": "collection", "label": "Colección" },
-    { "type": "checkbox", "id": "fallback_all", "label": "Si no hay colección, mostrar todos los productos", "default": true, "info": "Desactívalo para secciones como Juguetes: la sección se oculta hasta que tenga productos." },
-    { "type": "text", "id": "eyebrow", "label": "Etiqueta superior", "default": "Drop 04" },
-    { "type": "text", "id": "heading", "label": "Título", "default": "Novedades" },
-    { "type": "text", "id": "link_label", "label": "Texto del enlace", "default": "Ver todo" },
-    { "type": "url", "id": "link", "label": "Enlace", "info": "Si lo dejas vacío lleva a la colección elegida." },
-    { "type": "range", "id": "limit", "label": "Productos a mostrar", "min": 2, "max": 12, "step": 1, "default": 4 },
-    { "type": "checkbox", "id": "quick_add", "label": "Mostrar botón de agregar rápido", "default": true }
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Colección"
+    },
+    {
+      "type": "checkbox",
+      "id": "fallback_all",
+      "label": "Si no hay colección, mostrar todos los productos",
+      "default": true,
+      "info": "Desactívalo para que la sección se oculte cuando no tenga productos."
+    },
+    {
+      "type": "text",
+      "id": "match_keywords",
+      "label": "Mostrar solo productos con estas palabras",
+      "info": "Separadas por comas, por ejemplo: juguete, toy. Se buscan en el tipo de producto, etiquetas, categoría y colecciones. Déjalo vacío para no filtrar."
+    },
+    {
+      "type": "text",
+      "id": "exclude_keywords",
+      "label": "Ocultar productos con estas palabras",
+      "info": "Por ejemplo: juguete, toy, para que los juguetes no salgan en Novedades."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Etiqueta superior",
+      "default": "Drop 04"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Título",
+      "default": "Novedades"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Texto del enlace",
+      "default": "Ver todo"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Enlace",
+      "info": "Si lo dejas vacío lleva a la colección elegida."
+    },
+    {
+      "type": "range",
+      "id": "limit",
+      "label": "Productos a mostrar",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "quick_add",
+      "label": "Mostrar botón de agregar rápido",
+      "default": true
+    }
   ],
-  "presets": [{ "name": "Colección destacada" }]
+  "presets": [
+    {
+      "name": "Colección destacada"
+    }
+  ]
 }
 {% endschema %}

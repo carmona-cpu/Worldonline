@@ -72,7 +72,7 @@
       "other": "{{ count }} products"
     },
     "sort_by": "Sort by",
-    "pick_collection": "Pick a collection for “{{ title }}” in this section. It will show once it has products."
+    "pick_collection": "Esta sección aparecerá cuando haya productos que coincidan con “{{ title }}”. Revisa las palabras clave o elige una colección."
   },
   "newsletter": {
     "email": "Email",

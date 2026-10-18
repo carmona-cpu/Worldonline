@@ -1,0 +1,75 @@
+<footer class="site-footer" {{ section.shopify_attributes }}>
+  <div class="wrap">
+    <div class="foot">
+      {%- for block in section.blocks -%}
+        <div {{ block.shopify_attributes }}>
+          {%- case block.type -%}
+            {%- when 'about' -%}
+              <h4>{{ block.settings.heading | default: shop.name }}</h4>
+              <div class="rte" style="max-width:32ch">{{ block.settings.text }}</div>
+            {%- when 'menu' -%}
+              <h4>{{ block.settings.heading }}</h4>
+              <ul>
+                {%- for link in linklists[block.settings.menu].links -%}
+                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            {%- when 'text' -%}
+              <h4>{{ block.settings.heading }}</h4>
+              <div class="rte">{{ block.settings.text }}</div>
+          {%- endcase -%}
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.show_big_wordmark -%}
+      <div class="big" aria-hidden="true">{{ section.settings.big_text | default: shop.name }}</div>
+    {%- endif -%}
+    <div class="legal">
+      <span>&copy; {{ 'now' | date: '%Y' }} {{ shop.name | link_to: routes.root_url }}</span>
+      {%- if section.settings.show_payment_icons -%}
+        <ul class="payment-icons" aria-label="{{ 'footer.payment_methods' | t }}">
+          {%- for type in shop.enabled_payment_types -%}
+            <li>{{ type | payment_type_svg_tag }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Pie de página",
+  "class": "section-footer",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "checkbox", "id": "show_big_wordmark", "label": "Mostrar nombre grande", "default": true },
+    { "type": "text", "id": "big_text", "label": "Texto grande", "default": "SKYSTORE" },
+    { "type": "checkbox", "id": "show_payment_icons", "label": "Mostrar métodos de pago", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "about", "name": "Sobre la marca",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Título", "default": "SkyStore" },
+        { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Básicos de peso completo para todos los días.</p>" }
+      ]
+    },
+    {
+      "type": "menu", "name": "Menú",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Título", "default": "Tienda" },
+        { "type": "link_list", "id": "menu", "label": "Menú", "default": "footer" }
+      ]
+    },
+    {
+      "type": "text", "name": "Texto",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Título", "default": "Síguenos" },
+        { "type": "richtext", "id": "text", "label": "Texto", "default": "<p>Instagram<br>TikTok</p>" }
+      ]
+    }
+  ],
+  "enabled_on": { "groups": ["footer"] }
+}
+{% endschema %}

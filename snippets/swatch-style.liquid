@@ -1,0 +1,35 @@
+{%- comment -%}
+  Devuelve el estilo de fondo para una muestra de color.
+  Parámetros:
+  - value: valor de opción del producto (product_option_value) o texto.
+  Orden: 1) muestra nativa de Shopify (color o imagen), 2) lista de la configuración
+  del tema "Colores de muestras" (Nombre: #hex), 3) el nombre como color CSS.
+{%- endcomment -%}
+{%- liquid
+  assign name = value | append: ''
+  assign key = name | strip | downcase
+  assign bg = ''
+  if value.swatch.color
+    assign bg = 'background-color:' | append: value.swatch.color
+  elsif value.swatch.image
+    assign img = value.swatch.image | image_url: width: 64
+    assign bg = 'background-image:url(' | append: img | append: ')'
+  endif
+  if bg == ''
+    assign lines = settings.color_swatches | newline_to_br | split: '<br />'
+    for line in lines
+      assign parts = line | split: ':'
+      assign label = parts.first | strip | downcase
+      if label == key and parts.size > 1
+        assign hex = parts.last | strip
+        assign bg = 'background-color:' | append: hex
+        break
+      endif
+    endfor
+  endif
+  if bg == ''
+    assign css = key | remove: ' '
+    assign bg = 'background-color:' | append: css
+  endif
+-%}
+{{- bg -}}

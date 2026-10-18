@@ -1,0 +1,115 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "SkyStore",
+    "theme_version": "1.0.0",
+    "theme_author": "SkyStore",
+    "theme_documentation_url": "https://github.com/carmona-cpu/Worldonline",
+    "theme_support_url": "https://github.com/carmona-cpu/Worldonline"
+  },
+  {
+    "name": "Colores",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_paper",
+        "label": "Fondo",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_ink",
+        "label": "Texto y botones",
+        "default": "#141312"
+      },
+      {
+        "type": "color",
+        "id": "color_ink_soft",
+        "label": "Texto secundario",
+        "default": "#6b6762"
+      },
+      {
+        "type": "color",
+        "id": "color_line",
+        "label": "Líneas y bordes",
+        "default": "#e7e4df"
+      },
+      {
+        "type": "color",
+        "id": "color_mist",
+        "label": "Fondo suave (lookbook)",
+        "default": "#f4f3f0"
+      },
+      {
+        "type": "color",
+        "id": "color_hero",
+        "label": "Fondo del hero",
+        "default": "#3a2a1f"
+      },
+      {
+        "type": "color",
+        "id": "color_on_dark",
+        "label": "Texto sobre fondos oscuros",
+        "default": "#f5efe6"
+      }
+    ]
+  },
+  {
+    "name": "Productos",
+    "settings": [
+      {
+        "type": "text",
+        "id": "color_option_names",
+        "label": "Nombres de la opción de color",
+        "default": "Color, Colour, Colores",
+        "info": "Separados por comas. Las opciones con estos nombres se muestran como círculos de color; las demás (como Talla) como píldoras."
+      },
+      {
+        "type": "textarea",
+        "id": "color_swatches",
+        "label": "Colores de muestras",
+        "default": "Gris: #b9b8b4\nNegro: #2a2927\nHueso: #e9e2d3\nCacao: #4a3326\nArena: #d8c7a8\nSalvia: #9aa58c\nBlanco: #ffffff",
+        "info": "Un color por línea: Nombre: #hex. Solo hace falta si no usas las muestras de color nativas de Shopify."
+      }
+    ]
+  },
+  {
+    "name": "Carrito",
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "Al agregar un producto",
+        "default": "drawer",
+        "options": [
+          {
+            "value": "drawer",
+            "label": "Abrir carrito lateral"
+          },
+          {
+            "value": "page",
+            "label": "Ir a la página del carrito"
+          }
+        ]
+      },
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "Monto para envío gratis",
+        "default": 150,
+        "info": "En la moneda principal de tu tienda. Pon 0 para ocultar la barra. Debe coincidir con tu tarifa de envío en Configuración > Envíos."
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Imagen",
+        "info": "32 × 32 px o más, cuadrada."
+      }
+    ]
+  }
+]

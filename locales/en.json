@@ -1,0 +1,95 @@
+{
+  "general": {
+    "close": "Close",
+    "next": "Next",
+    "previous": "Previous",
+    "page": "Page {{ page }}",
+    "pagination": "Pagination",
+    "skip_to_content": "Skip to content"
+  },
+  "header": {
+    "account": "Account",
+    "cart": "Bag",
+    "main_nav": "Main",
+    "menu": "Menu",
+    "mobile_nav": "Mobile menu",
+    "open_cart": "Open bag",
+    "search": "Search"
+  },
+  "footer": {
+    "payment_methods": "Payment methods"
+  },
+  "products": {
+    "add_to_cart": "Add to bag",
+    "choose_options": "Choose size",
+    "colors_count": {
+      "one": "{{ count }} color",
+      "other": "{{ count }} colors"
+    },
+    "from_price": "From {{ price }}",
+    "new": "New",
+    "quick_add": "Quick add",
+    "sale": "Sale",
+    "sample_hint": "Pick a product or collection in Customize",
+    "sample_product": "Sample product",
+    "sold_out": "Sold out",
+    "unavailable": "Unavailable",
+    "view_n": "View {{ n }}",
+    "views": "Views"
+  },
+  "cart": {
+    "added": "Added to bag",
+    "checkout": "Checkout",
+    "continue": "Continue shopping",
+    "decrease": "Remove one",
+    "increase": "Add one",
+    "empty": "Your bag is empty.",
+    "error": "Couldn't update your bag. Please try again.",
+    "items_count": {
+      "one": "{{ count }} item",
+      "other": "{{ count }} items"
+    },
+    "note": "Order note",
+    "quantity": "Quantity",
+    "remove": "Remove",
+    "save_note": "Save note",
+    "shipping_free": "You unlocked free shipping",
+    "shipping_left": "{{ amount }} away from free shipping",
+    "subtotal": "Subtotal",
+    "taxes_note": "Taxes and shipping calculated at checkout.",
+    "title": "Your bag",
+    "view_cart": "View bag"
+  },
+  "collections": {
+    "all": "Collections",
+    "apply": "Apply",
+    "clear_all": "Clear filters",
+    "empty": "No products match these filters.",
+    "price_from": "From",
+    "price_to": "To",
+    "products_count": {
+      "one": "{{ count }} product",
+      "other": "{{ count }} products"
+    },
+    "sort_by": "Sort by"
+  },
+  "newsletter": {
+    "email": "Email",
+    "placeholder": "you@email.com",
+    "success": "You're on the list. Check your inbox."
+  },
+  "not_found": {
+    "title": "This page doesn't exist",
+    "text": "The link may be wrong, or the product is no longer available."
+  },
+  "search": {
+    "no_results": "No results for “{{ terms }}”.",
+    "placeholder": "Search products",
+    "results_count": {
+      "one": "{{ count }} result",
+      "other": "{{ count }} results"
+    },
+    "submit": "Search",
+    "title": "Search"
+  }
+}

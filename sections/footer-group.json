@@ -1,0 +1,37 @@
+{
+  "type": "footer",
+  "name": "Pie de página",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "about": {
+          "type": "about",
+          "settings": {
+            "heading": "SkyStore",
+            "text": "<p>Básicos de peso completo para todos los días.</p>"
+          }
+        },
+        "shop": {
+          "type": "menu",
+          "settings": { "heading": "Tienda", "menu": "main-menu" }
+        },
+        "help": {
+          "type": "menu",
+          "settings": { "heading": "Ayuda", "menu": "footer" }
+        },
+        "follow": {
+          "type": "text",
+          "settings": { "heading": "Síguenos", "text": "<p>Instagram<br>TikTok</p>" }
+        }
+      },
+      "block_order": ["about", "shop", "help", "follow"],
+      "settings": {
+        "show_big_wordmark": true,
+        "big_text": "SKYSTORE",
+        "show_payment_icons": true
+      }
+    }
+  },
+  "order": ["footer"]
+}

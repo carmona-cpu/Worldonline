@@ -1,0 +1,54 @@
+{%- assign menu = linklists[section.settings.menu] -%}
+<header class="site-header" {{ section.shopify_attributes }}>
+  <div class="wrap bar">
+    <nav class="nav" aria-label="{{ 'header.main_nav' | t }}">
+      {%- for link in menu.links -%}
+        <a href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+    <button class="burger" id="Burger" aria-expanded="false" aria-controls="MobileNav">{{ 'header.menu' | t }}</button>
+
+    <a href="{{ routes.root_url }}" class="wordmark" aria-label="{{ shop.name | escape }}">
+      {%- if section.settings.logo != blank -%}
+        {{ section.settings.logo | image_url: width: 400 | image_tag: alt: shop.name, widths: '200, 400' }}
+      {%- else -%}
+        {{ section.settings.wordmark | default: shop.name }}
+      {%- endif -%}
+    </a>
+
+    <div class="tools">
+      {% render 'localization-pill', form_id: 'LangHeader' %}
+      <a class="tool-link" href="{{ routes.search_url }}">{{ 'header.search' | t }}</a>
+      {%- if shop.customer_accounts_enabled -%}
+        <a class="tool-link" href="{{ routes.account_url }}">{{ 'header.account' | t }}</a>
+      {%- endif -%}
+      <a class="cart-btn" href="{{ routes.cart_url }}" id="CartToggle" aria-label="{{ 'header.open_cart' | t }}">
+        <span class="cart-label">{{ 'header.cart' | t }}</span>
+        <span class="count" id="CartCount">{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </div>
+  <nav class="wrap mnav" id="MobileNav" aria-label="{{ 'header.mobile_nav' | t }}">
+    {%- for link in menu.links -%}
+      <a href="{{ link.url }}">{{ link.title }}</a>
+    {%- endfor -%}
+    <a href="{{ routes.search_url }}">{{ 'header.search' | t }}</a>
+    {%- if shop.customer_accounts_enabled -%}
+      <a href="{{ routes.account_url }}">{{ 'header.account' | t }}</a>
+    {%- endif -%}
+    {% render 'localization-pill', form_id: 'LangMobile' %}
+  </nav>
+</header>
+
+{% schema %}
+{
+  "name": "Encabezado",
+  "class": "section-header",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo (opcional)", "info": "Si no subes un logo se usa el texto de abajo con la tipografía ancha del diseño." },
+    { "type": "text", "id": "wordmark", "label": "Texto del logo", "default": "SKYSTORE" },
+    { "type": "link_list", "id": "menu", "label": "Menú", "default": "main-menu" }
+  ],
+  "enabled_on": { "groups": ["header"] }
+}
+{% endschema %}

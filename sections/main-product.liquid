@@ -1,0 +1,45 @@
+<section class="section" style="padding-top:clamp(32px,5vw,64px)" {{ section.shopify_attributes }}>
+  {% render 'product-main', product: product, section: section, title_tag: 'h1', page: true %}
+</section>
+
+{%- if product.selected_or_first_available_variant -%}
+  <script type="application/ld+json">
+    {{ product | structured_data }}
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Producto",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Etiqueta superior", "default": "" },
+    { "type": "checkbox", "id": "show_description", "label": "Mostrar descripción", "default": true },
+    { "type": "checkbox", "id": "show_quantity", "label": "Mostrar selector de cantidad", "default": true },
+    { "type": "checkbox", "id": "show_dynamic_checkout", "label": "Mostrar botón de pago rápido (Shop Pay, etc.)", "default": false }
+  ],
+  "blocks": [
+    {
+      "type": "spec", "name": "Especificación",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Nombre", "default": "Composición" },
+        { "type": "text", "id": "value", "label": "Valor fijo", "info": "Opcional. Si lo dejas vacío se usa el metafield de abajo." },
+        { "type": "text", "id": "metafield", "label": "Metafield del producto", "info": "Formato espacio.clave, por ejemplo custom.composicion. Si el producto no lo tiene, la fila no se muestra." }
+      ]
+    },
+    {
+      "type": "note", "name": "Nota de talla", "limit": 1,
+      "settings": [
+        { "type": "text", "id": "text", "label": "Texto", "default": "Corte amplio; pide una talla menos para un ajuste más cerca." }
+      ]
+    },
+    {
+      "type": "perks", "name": "Beneficios", "limit": 1,
+      "settings": [
+        { "type": "text", "id": "perk_1", "label": "Beneficio 1", "default": "Sale en 1–2 días hábiles" },
+        { "type": "text", "id": "perk_2", "label": "Beneficio 2", "default": "Devoluciones gratis por 30 días" },
+        { "type": "text", "id": "perk_3", "label": "Beneficio 3", "default": "Lavar en frío, secar colgada" }
+      ]
+    }
+  ]
+}
+{% endschema %}

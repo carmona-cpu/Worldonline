@@ -1,0 +1,49 @@
+{%- comment -%}
+  Líneas del carrito. Lo usan el carrito lateral y la página de carrito.
+  Cada botón cambia la cantidad con la API de carrito de Shopify (ver assets/skystore.js);
+  sin JavaScript, los enlaces funcionan igual.
+{%- endcomment -%}
+{%- if cart.item_count > 0 -%}
+  {%- for item in cart.items -%}
+    <div class="line" data-line="{{ forloop.index }}">
+      <a href="{{ item.url }}">
+        {%- if item.image -%}
+          {{ item.image | image_url: width: 200 | image_tag: loading: 'lazy', alt: item.product.title }}
+        {%- else -%}
+          {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </a>
+      <div>
+        <b><a href="{{ item.url }}">{{ item.product.title }}</a></b>
+        {%- unless item.product.has_only_default_variant -%}
+          <small>{{ item.variant.title }}</small>
+        {%- endunless -%}
+        {%- for property in item.properties -%}
+          {%- assign first_char = property.first | slice: 0 -%}
+          {%- if property.last != blank and first_char != '_' -%}
+            <small>{{ property.first }}: {{ property.last }}</small>
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if item.selling_plan_allocation -%}<small>{{ item.selling_plan_allocation.selling_plan.name }}</small>{%- endif -%}
+        {%- for discount in item.line_level_discount_allocations -%}
+          <small>{{ discount.discount_application.title }} (−{{ discount.amount | money }})</small>
+        {%- endfor -%}
+        {%- assign minus = item.quantity | minus: 1 -%}
+        {%- assign plus = item.quantity | plus: 1 -%}
+        <div class="qty">
+          <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity={{ minus }}" role="button" data-line-change="{{ forloop.index }}" data-quantity="{{ minus }}" aria-label="{{ 'cart.decrease' | t }}" style="display:inline-grid;place-items:center;width:24px;height:24px;border:1px solid var(--line);border-radius:50%">−</a>
+          <span>{{ item.quantity }}</span>
+          <a href="{{ routes.cart_change_url }}?line={{ forloop.index }}&quantity={{ plus }}" role="button" data-line-change="{{ forloop.index }}" data-quantity="{{ plus }}" aria-label="{{ 'cart.increase' | t }}" style="display:inline-grid;place-items:center;width:24px;height:24px;border:1px solid var(--line);border-radius:50%">+</a>
+          <a class="remove" href="{{ item.url_to_remove }}" data-line-change="{{ forloop.index }}" data-quantity="0">{{ 'cart.remove' | t }}</a>
+        </div>
+      </div>
+      <span class="line-price">
+        {%- if item.original_line_price > item.final_line_price -%}<s>{{ item.original_line_price | money }}</s>{%- endif -%}
+        {{ item.final_line_price | money }}
+      </span>
+    </div>
+  {%- endfor -%}
+{%- else -%}
+  <p class="empty">{{ 'cart.empty' | t }}</p>
+  <a class="btn btn-outline" href="{{ routes.all_products_collection_url }}">{{ 'cart.continue' | t }}</a>
+{%- endif -%}

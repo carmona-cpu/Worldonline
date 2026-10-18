@@ -1,0 +1,116 @@
+{%- paginate collection.products by section.settings.per_page -%}
+<section class="section" style="padding-top:clamp(32px,5vw,64px)" {{ section.shopify_attributes }}>
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="label">{{ 'collections.products_count' | t: count: collection.products_count }}</span>
+        <h1>{{ collection.title }}</h1>
+      </div>
+    </div>
+    {%- if collection.description != blank and section.settings.show_description -%}
+      <div class="rte page-narrow" style="color:var(--ink-soft);margin:-12px 0 28px">{{ collection.description }}</div>
+    {%- endif -%}
+
+    <form class="toolbar" id="CollectionFilters" method="get" action="{{ collection.url }}" data-autosubmit>
+      <div class="filters">
+        {%- if section.settings.enable_filters -%}
+          {%- for filter in collection.filters -%}
+            <details class="filter">
+              <summary>{{ filter.label }}{% if filter.active_values.size > 0 %} · {{ filter.active_values.size }}{% endif %}</summary>
+              <div class="filter-panel">
+                {%- case filter.type -%}
+                  {%- when 'list', 'boolean' -%}
+                    {%- for value in filter.values -%}
+                      <label class="{% if value.count == 0 and value.active == false %}is-disabled{% endif %}">
+                        <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}" {% if value.active %}checked{% endif %} {% if value.count == 0 and value.active == false %}disabled{% endif %}>
+                        {%- if value.swatch.color -%}<i class="sw" style="background-color:{{ value.swatch.color }}"></i>{%- endif -%}
+                        {{ value.label }} <span style="color:var(--ink-soft)">({{ value.count }})</span>
+                      </label>
+                    {%- endfor -%}
+                  {%- when 'price_range' -%}
+                    {%- liquid
+                      assign min_val = ''
+                      assign max_val = ''
+                      if filter.min_value.value
+                        assign min_val = filter.min_value.value | money_without_currency | remove: ','
+                      endif
+                      if filter.max_value.value
+                        assign max_val = filter.max_value.value | money_without_currency | remove: ','
+                      endif
+                      assign range_max = filter.range_max | money_without_currency | remove: ','
+                    -%}
+                    <div class="price-range">
+                      <input type="number" name="{{ filter.min_value.param_name }}" value="{{ min_val }}" placeholder="0" min="0" aria-label="{{ 'collections.price_from' | t }}">
+                      <span>–</span>
+                      <input type="number" name="{{ filter.max_value.param_name }}" value="{{ max_val }}" placeholder="{{ range_max }}" min="0" aria-label="{{ 'collections.price_to' | t }}">
+                    </div>
+                    <button type="submit" class="btn btn-dark" style="height:36px">{{ 'collections.apply' | t }}</button>
+                {%- endcase -%}
+              </div>
+            </details>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+      <div class="sort">
+        <label for="SortBy" class="visually-hidden">{{ 'collections.sort_by' | t }}</label>
+        {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
+        <select name="sort_by" id="SortBy">
+          {%- for option in collection.sort_options -%}
+            <option value="{{ option.value }}" {% if option.value == sort_by %}selected{% endif %}>{{ option.name }}</option>
+          {%- endfor -%}
+        </select>
+      </div>
+      <noscript><button type="submit" class="btn btn-outline" style="height:36px">{{ 'collections.apply' | t }}</button></noscript>
+    </form>
+
+    {%- liquid
+      assign active_count = 0
+      for filter in collection.filters
+        assign active_count = active_count | plus: filter.active_values.size
+        if filter.min_value.value or filter.max_value.value
+          assign active_count = active_count | plus: 1
+        endif
+      endfor
+    -%}
+    {%- if active_count > 0 -%}
+      <div class="active-filters">
+        {%- for filter in collection.filters -%}
+          {%- for value in filter.active_values -%}
+            <a class="chip" href="{{ value.url_to_remove }}">{{ value.label }} ✕</a>
+          {%- endfor -%}
+          {%- if filter.type == 'price_range' -%}
+            {%- if filter.min_value.value or filter.max_value.value -%}
+              <a class="chip" href="{{ filter.url_to_remove }}">{{ filter.min_value.value | default: 0 | money }} – {{ filter.max_value.value | default: filter.range_max | money }} ✕</a>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+        <a class="chip" href="{{ collection.url }}?sort_by={{ sort_by }}">{{ 'collections.clear_all' | t }}</a>
+      </div>
+    {%- endif -%}
+
+    {%- if collection.products.size > 0 -%}
+      <div class="grid">
+        {%- for product in collection.products -%}
+          {% render 'product-card', product: product, index: forloop.index0, quick_add: section.settings.quick_add %}
+        {%- endfor -%}
+      </div>
+    {%- else -%}
+      <p class="empty">{{ 'collections.empty' | t }}</p>
+    {%- endif -%}
+
+    {% render 'pagination', paginate: paginate %}
+  </div>
+</section>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Colección",
+  "settings": [
+    { "type": "range", "id": "per_page", "label": "Productos por página", "min": 8, "max": 48, "step": 4, "default": 24 },
+    { "type": "checkbox", "id": "enable_filters", "label": "Mostrar filtros", "default": true, "info": "Configura los filtros (talla, color, precio) con la app gratuita Search & Discovery de Shopify." },
+    { "type": "checkbox", "id": "show_description", "label": "Mostrar descripción de la colección", "default": true },
+    { "type": "checkbox", "id": "quick_add", "label": "Mostrar botón de agregar rápido", "default": true }
+  ]
+}
+{% endschema %}

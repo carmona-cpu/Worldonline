@@ -1,0 +1,20 @@
+{%- comment -%}
+  Selector de idioma con el estilo de píldora EN / ES del diseño original.
+  Solo aparece si la tienda tiene más de un idioma publicado.
+{%- endcomment -%}
+{%- if localization.available_languages.size > 1 -%}
+  {%- form 'localization', class: 'lang', id: form_id -%}
+    {%- for language in localization.available_languages -%}
+      <button
+        type="submit"
+        name="locale_code"
+        value="{{ language.iso_code }}"
+        aria-pressed="{% if language.iso_code == localization.language.iso_code %}true{% else %}false{% endif %}"
+        lang="{{ language.iso_code }}"
+        aria-label="{{ language.endonym_name | escape }}"
+      >
+        {{- language.iso_code | split: '-' | first -}}
+      </button>
+    {%- endfor -%}
+  {%- endform -%}
+{%- endif -%}

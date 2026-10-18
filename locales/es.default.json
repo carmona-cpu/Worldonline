@@ -1,0 +1,95 @@
+{
+  "general": {
+    "close": "Cerrar",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "page": "Página {{ page }}",
+    "pagination": "Paginación",
+    "skip_to_content": "Saltar al contenido"
+  },
+  "header": {
+    "account": "Cuenta",
+    "cart": "Bolsa",
+    "main_nav": "Principal",
+    "menu": "Menú",
+    "mobile_nav": "Menú móvil",
+    "open_cart": "Abrir bolsa",
+    "search": "Buscar"
+  },
+  "footer": {
+    "payment_methods": "Métodos de pago"
+  },
+  "products": {
+    "add_to_cart": "Agregar a la bolsa",
+    "choose_options": "Elegir talla",
+    "colors_count": {
+      "one": "{{ count }} color",
+      "other": "{{ count }} colores"
+    },
+    "from_price": "Desde {{ price }}",
+    "new": "Nuevo",
+    "quick_add": "Agregar rápido",
+    "sale": "Oferta",
+    "sample_hint": "Elige un producto o colección en Personalizar",
+    "sample_product": "Producto de ejemplo",
+    "sold_out": "Agotado",
+    "unavailable": "No disponible",
+    "view_n": "Vista {{ n }}",
+    "views": "Vistas"
+  },
+  "cart": {
+    "added": "Agregado a la bolsa",
+    "checkout": "Pagar",
+    "continue": "Seguir comprando",
+    "decrease": "Quitar uno",
+    "increase": "Agregar uno",
+    "empty": "Tu bolsa está vacía.",
+    "error": "No se pudo actualizar la bolsa. Inténtalo de nuevo.",
+    "items_count": {
+      "one": "{{ count }} artículo",
+      "other": "{{ count }} artículos"
+    },
+    "note": "Nota del pedido",
+    "quantity": "Cantidad",
+    "remove": "Quitar",
+    "save_note": "Guardar nota",
+    "shipping_free": "Tienes envío gratis",
+    "shipping_left": "Te faltan {{ amount }} para envío gratis",
+    "subtotal": "Subtotal",
+    "taxes_note": "Impuestos y envío se calculan al pagar.",
+    "title": "Tu bolsa",
+    "view_cart": "Ver bolsa"
+  },
+  "collections": {
+    "all": "Colecciones",
+    "apply": "Aplicar",
+    "clear_all": "Quitar filtros",
+    "empty": "No hay productos con estos filtros.",
+    "price_from": "Desde",
+    "price_to": "Hasta",
+    "products_count": {
+      "one": "{{ count }} producto",
+      "other": "{{ count }} productos"
+    },
+    "sort_by": "Ordenar por"
+  },
+  "newsletter": {
+    "email": "Correo",
+    "placeholder": "tu@correo.com",
+    "success": "Ya estás en la lista. Revisa tu correo."
+  },
+  "not_found": {
+    "title": "Esta página no existe",
+    "text": "Puede que el enlace esté mal o que el producto ya no esté disponible."
+  },
+  "search": {
+    "no_results": "No encontramos resultados para “{{ terms }}”.",
+    "placeholder": "Buscar productos",
+    "results_count": {
+      "one": "{{ count }} resultado",
+      "other": "{{ count }} resultados"
+    },
+    "submit": "Buscar",
+    "title": "Buscar"
+  }
+}

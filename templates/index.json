@@ -1,0 +1,167 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow": "Otoño / Invierno 26",
+        "heading": "Hecho pesado. Para diario.",
+        "text": "Básicos de peso completo en algodón cepillado. Hechos para durar más que la moda.",
+        "button_label": "Ver novedades",
+        "button_link": "shopify://collections/all",
+        "button2_label": "Ver lookbook"
+      }
+    },
+    "new": {
+      "type": "featured-collection",
+      "settings": {
+        "eyebrow": "Drop 04",
+        "heading": "Novedades",
+        "link_label": "Ver todo",
+        "limit": 4,
+        "quick_add": true
+      }
+    },
+    "featured": {
+      "type": "featured-product",
+      "settings": {
+        "eyebrow": "Más vendido · De nuevo en stock",
+        "show_description": true,
+        "show_quantity": false,
+        "show_dynamic_checkout": false
+      },
+      "blocks": {
+        "spec1": {
+          "type": "spec",
+          "settings": {
+            "label": "Peso de la tela",
+            "metafield": "custom.peso_tela"
+          }
+        },
+        "spec2": {
+          "type": "spec",
+          "settings": {
+            "label": "Composición",
+            "metafield": "custom.composicion"
+          }
+        },
+        "note": {
+          "type": "note",
+          "settings": {
+            "text": "Corte amplio; pide una talla menos para un ajuste más cerca."
+          }
+        },
+        "perks": {
+          "type": "perks",
+          "settings": {
+            "perk_1": "Sale en 1–2 días hábiles",
+            "perk_2": "Devoluciones gratis por 30 días",
+            "perk_3": "Lavar en frío, secar colgada"
+          }
+        }
+      },
+      "block_order": [
+        "spec1",
+        "spec2",
+        "note",
+        "perks"
+      ]
+    },
+    "look": {
+      "type": "lookbook",
+      "settings": {
+        "eyebrow": "@skystore",
+        "heading": "Usado en la ciudad",
+        "link_label": "Etiquétanos para salir aquí"
+      },
+      "blocks": {
+        "l1": {
+          "type": "image",
+          "settings": {
+            "caption": "Look 01"
+          }
+        },
+        "l2": {
+          "type": "image",
+          "settings": {
+            "caption": "Look 02"
+          }
+        },
+        "l3": {
+          "type": "image",
+          "settings": {
+            "caption": "Look 03"
+          }
+        },
+        "l4": {
+          "type": "image",
+          "settings": {
+            "caption": "Look 04"
+          }
+        },
+        "l5": {
+          "type": "image",
+          "settings": {
+            "caption": "El estudio"
+          }
+        }
+      },
+      "block_order": [
+        "l1",
+        "l2",
+        "l3",
+        "l4",
+        "l5"
+      ]
+    },
+    "values": {
+      "type": "values",
+      "blocks": {
+        "v1": {
+          "type": "value",
+          "settings": {
+            "label": "Calidad",
+            "heading": "Más pesada a propósito",
+            "text": "Telas gruesas que mantienen su forma lavada tras lavada."
+          }
+        },
+        "v2": {
+          "type": "value",
+          "settings": {
+            "label": "Hecho con cuidado",
+            "heading": "Cortada y cosida con detalle",
+            "text": "Cada pieza pasa por control de calidad antes de salir."
+          }
+        },
+        "v3": {
+          "type": "value",
+          "settings": {
+            "label": "30 días",
+            "heading": "Devoluciones fáciles",
+            "text": "¿No es tu talla? Devuélvela gratis dentro de 30 días."
+          }
+        }
+      },
+      "block_order": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "news": {
+      "type": "newsletter",
+      "settings": {
+        "heading": "Entra primero al próximo drop.",
+        "text": "Únete a la lista para acceso anticipado y 10% de descuento en tu primera compra.",
+        "button": "Unirme"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "new",
+    "featured",
+    "look",
+    "values",
+    "news"
+  ]
+}

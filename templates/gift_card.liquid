@@ -1,0 +1,29 @@
+{%- layout none -%}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{{ shop.name }} · {{ gift_card.balance | money }}</title>
+    {{ 'skystore.css' | asset_url | stylesheet_tag }}
+    <style>:root{--paper:#fff;--ink:#141312;--ink-soft:#6b6762;--line:#e7e4df;--mist:#f4f3f0;--display:"Helvetica Neue",Arial,sans-serif;--body:"Helvetica Neue",Arial,sans-serif;--mono:ui-monospace,Menlo,monospace;--gutter:16px}</style>
+    {{ content_for_header }}
+  </head>
+  <body>
+    <main class="section">
+      <div class="wrap center page-narrow">
+        <span class="label">{{ shop.name }}</span>
+        <h1 style="font-size:40px">{{ gift_card.balance | money }}</h1>
+        {%- if gift_card.enabled == false or gift_card.expired -%}
+          <p class="fit">{{ gift_card.code | format_code }}</p>
+        {%- else -%}
+          <p style="font:500 18px/1 var(--mono);letter-spacing:.1em;border:1px dashed var(--ink);padding:16px 24px">{{ gift_card.code | format_code }}</p>
+        {%- endif -%}
+        <a class="btn btn-dark" style="width:auto" href="{{ shop.url }}">{{ shop.name }}</a>
+        {%- if gift_card.pass_url -%}
+          <a href="{{ gift_card.pass_url }}"><img src="{{ 'gift-card/add-to-apple-wallet.svg' | shopify_asset_url }}" width="120" height="40" alt="Apple Wallet" loading="lazy"></a>
+        {%- endif -%}
+      </div>
+    </main>
+  </body>
+</html>

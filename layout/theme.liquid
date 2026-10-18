@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <meta name="theme-color" content="{{ settings.color_paper }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 64, height: 64 }}">
+    {%- endif -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; {{ current_tags | join: ', ' }}{% endif -%}
+      {%- if current_page != 1 %} &ndash; {{ 'general.page' | t: page: current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+    {%- if page_description -%}
+      <meta name="description" content="{{ page_description | escape }}">
+    {%- endif -%}
+    {% render 'meta-tags' %}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+
+    <style>
+      :root{
+        --paper:{{ settings.color_paper }};
+        --ink:{{ settings.color_ink }};
+        --ink-soft:{{ settings.color_ink_soft }};
+        --line:{{ settings.color_line }};
+        --mist:{{ settings.color_mist }};
+        --walnut:{{ settings.color_hero }};
+        --on-dark:{{ settings.color_on_dark }};
+        --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+        --body:"Instrument Sans","Helvetica Neue",Arial,sans-serif;
+        --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+        --gutter:clamp(16px,4vw,48px);
+        color-scheme:light;
+      }
+    </style>
+    {{ 'skystore.css' | asset_url | stylesheet_tag }}
+
+    <script>
+      window.SkyStore = {
+        routes: {
+          cart_add_url: '{{ routes.cart_add_url }}',
+          cart_change_url: '{{ routes.cart_change_url }}',
+          cart_url: '{{ routes.cart_url }}'
+        },
+        cartType: {{ settings.cart_type | json }},
+        strings: {
+          added: {{ 'cart.added' | t | json }},
+          error: {{ 'cart.error' | t | json }},
+          soldOut: {{ 'products.sold_out' | t | json }},
+          unavailable: {{ 'products.unavailable' | t | json }},
+          addToCart: {{ 'products.add_to_cart' | t | json }}
+        }
+      };
+    </script>
+    <script src="{{ 'skystore.js' | asset_url }}" defer></script>
+
+    {{ content_for_header }}
+  </head>
+
+  <body class="template-{{ template.name | handle }}">
+    <a class="skip-link" href="#MainContent">{{ 'general.skip_to_content' | t }}</a>
+
+    {% sections 'header-group' %}
+
+    <main id="MainContent" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    {%- if settings.cart_type == 'drawer' -%}
+      <div class="scrim" id="CartScrim" data-cart-close></div>
+      <aside class="drawer" id="CartDrawer" aria-label="{{ 'cart.title' | t }}" aria-hidden="true" tabindex="-1">
+        {% section 'cart-drawer' %}
+      </aside>
+    {%- endif -%}
+    <div class="toast" id="Toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

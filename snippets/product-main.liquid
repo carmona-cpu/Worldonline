@@ -1,0 +1,194 @@
+{%- comment -%}
+  Bloque de producto en tres columnas (información · fotos · compra), igual al
+  "Cloud Hoodie" del diseño original. Lo usan la plantilla de producto y la
+  sección "Producto destacado" de la portada.
+  Parámetros:
+  - product: objeto product (vacío = vista de ejemplo)
+  - section: la sección que lo contiene (para sus bloques y ajustes)
+  - title_tag: 'h1' o 'h2'
+  - page: true en la página de producto
+{%- endcomment -%}
+{%- liquid
+  assign color_names = settings.color_option_names | downcase | split: ','
+  assign title_tag = title_tag | default: 'h2'
+  if product != blank
+    assign current_variant = product.selected_or_first_available_variant
+    assign featured = current_variant.featured_media | default: product.featured_media
+  endif
+-%}
+<div class="wrap pdp{% if page %} pdp--page{% endif %}" data-product-root data-section="{{ section.id }}">
+  <div class="pdp-info">
+    {%- if section.settings.eyebrow != blank -%}<span class="label">{{ section.settings.eyebrow }}</span>{%- endif -%}
+    <{{ title_tag }}>{% if product != blank %}{{ product.title }}{% else %}{{ 'products.sample_product' | t }}{% endif %}</{{ title_tag }}>
+    {%- if product != blank and section.settings.show_description -%}
+      <div class="rte">{{ product.description }}</div>
+    {%- elsif product == blank -%}
+      <div class="rte"><p>{{ 'products.sample_hint' | t }}</p></div>
+    {%- endif -%}
+    {%- capture spec_rows -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'spec' -%}
+          {%- liquid
+            assign spec_value = block.settings.value
+            if spec_value == blank and block.settings.metafield != blank and product != blank
+              assign mf_parts = block.settings.metafield | strip | split: '.'
+              if mf_parts.size == 2
+                assign spec_value = product.metafields[mf_parts[0]][mf_parts[1]].value
+              endif
+            endif
+          -%}
+          {%- if spec_value != blank -%}
+            <div {{ block.shopify_attributes }}><dt>{{ block.settings.label }}</dt><dd>{{ spec_value }}</dd></div>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+    {%- if spec_rows != blank -%}
+      <dl class="specs">{{ spec_rows }}</dl>
+    {%- endif -%}
+  </div>
+
+  <div class="stage">
+    <div class="stage-main">
+      {%- if product != blank and featured -%}
+        {%- assign img_alt = featured.alt | default: product.title | escape -%}
+        {{ featured | image_url: width: 1400 | image_tag: widths: '480, 720, 960, 1200, 1400', sizes: '(min-width: 1000px) 40vw, 100vw', class: 'stage-img', alt: img_alt }}
+      {%- elsif product != blank -%}
+        {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- else -%}
+        <img src="{{ 'sample-1.webp' | asset_url }}" alt="{{ 'products.sample_product' | t }}" width="960" height="1200" class="stage-img">
+      {%- endif -%}
+    </div>
+    {%- if product != blank and product.media.size > 1 -%}
+      <div class="thumbs" role="group" aria-label="{{ 'products.views' | t }}">
+        {%- for media in product.media -%}
+          {%- if media.media_type == 'image' or media.preview_image -%}
+            {%- assign img = media.preview_image | default: media -%}
+            <button
+              type="button"
+              aria-pressed="{% if media.id == featured.id %}true{% else %}false{% endif %}"
+              data-media-id="{{ media.id }}"
+              data-src="{{ img | image_url: width: 1400 }}"
+              data-srcset="{{ img | image_url: width: 720 }} 720w, {{ img | image_url: width: 1400 }} 1400w"
+              aria-label="{{ 'products.view_n' | t: n: forloop.index }}"
+            >
+              {{ img | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}
+            </button>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- elsif product == blank -%}
+      <div class="thumbs" role="group" aria-label="{{ 'products.views' | t }}">
+        <button type="button" aria-pressed="true" data-src="{{ 'sample-1.webp' | asset_url }}" aria-label="{{ 'products.view_n' | t: n: 1 }}"><img src="{{ 'sample-1.webp' | asset_url }}" alt=""></button>
+        <button type="button" aria-pressed="false" data-src="{{ 'sample-2.webp' | asset_url }}" aria-label="{{ 'products.view_n' | t: n: 2 }}"><img src="{{ 'sample-2.webp' | asset_url }}" alt=""></button>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="buy">
+    {%- if product != blank -%}
+      {%- form 'product', product, data-product-form: '', novalidate: 'novalidate' -%}
+        <div class="price" data-price>{% render 'price', variant: current_variant %}</div>
+        <div class="installments">{{ form | payment_terms }}</div>
+
+        {%- unless product.has_only_default_variant -%}
+          {%- for option in product.options_with_values -%}
+            {%- liquid
+              assign oname = option.name | strip | downcase
+              assign is_color = false
+              for cn in color_names
+                assign c = cn | strip
+                if oname == c
+                  assign is_color = true
+                endif
+              endfor
+            -%}
+            <fieldset class="opt" data-option-index="{{ forloop.index0 }}">
+              <legend class="label">
+                {{ option.name }}{% if is_color %}: <b data-option-label style="color:var(--ink)">{{ option.selected_value }}</b>{% endif %}
+              </legend>
+              <div class="opt-row">
+                {%- for value in option.values -%}
+                  {%- if is_color -%}
+                    <button
+                      type="button"
+                      class="color{% unless value.available %} is-unavailable{% endunless %}"
+                      style="{% render 'swatch-style', value: value %}"
+                      data-value="{{ value | escape }}"
+                      aria-pressed="{% if value.selected %}true{% else %}false{% endif %}"
+                      aria-label="{{ value | escape }}"
+                      title="{{ value | escape }}"
+                    ></button>
+                  {%- else -%}
+                    <button
+                      type="button"
+                      class="size{% unless value.available %} is-unavailable{% endunless %}"
+                      data-value="{{ value | escape }}"
+                      aria-pressed="{% if value.selected %}true{% else %}false{% endif %}"
+                    >{{ value }}</button>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            </fieldset>
+          {%- endfor -%}
+        {%- endunless -%}
+
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'note' and block.settings.text != blank -%}
+            <p class="fit" {{ block.shopify_attributes }}>{{ block.settings.text }}</p>
+          {%- endif -%}
+        {%- endfor -%}
+
+        <input type="hidden" name="id" value="{{ current_variant.id }}" data-variant-id>
+        {%- if section.settings.show_quantity -%}
+          <div class="qty-input">
+            <button type="button" data-qty="-1" aria-label="{{ 'cart.decrease' | t }}">−</button>
+            <input type="number" name="quantity" value="1" min="1" aria-label="{{ 'cart.quantity' | t }}">
+            <button type="button" data-qty="1" aria-label="{{ 'cart.increase' | t }}">+</button>
+          </div>
+        {%- endif -%}
+
+        <button type="submit" class="btn btn-dark" data-add-button {% unless current_variant.available %}disabled{% endunless %}>
+          {%- if current_variant.available -%}{{ 'products.add_to_cart' | t }}{%- else -%}{{ 'products.sold_out' | t }}{%- endif -%}
+        </button>
+        <p class="form-error" data-form-error hidden></p>
+
+        {%- if section.settings.show_dynamic_checkout -%}
+          {{ form | payment_button }}
+        {%- endif -%}
+      {%- endform -%}
+
+      <script type="application/json" data-product-json>
+        {
+          "url": {{ product.url | json }},
+          "options": {{ product.options | json }},
+          "variants": [
+            {%- for v in product.variants -%}
+              {%- capture price_html -%}{% render 'price', variant: v %}{%- endcapture -%}
+              {
+                "id": {{ v.id }},
+                "options": {{ v.options | json }},
+                "available": {{ v.available | json }},
+                "media_id": {% if v.featured_media %}{{ v.featured_media.id }}{% else %}null{% endif %},
+                "price_html": {{ price_html | strip | json }}
+              }{% unless forloop.last %},{% endunless %}
+            {%- endfor -%}
+          ]
+        }
+      </script>
+    {%- else -%}
+      <div class="price">{{ 9800 | money }}</div>
+      <button type="button" class="btn btn-dark" disabled>{{ 'products.add_to_cart' | t }}</button>
+    {%- endif -%}
+
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'perks' -%}
+        <ul class="perks" {{ block.shopify_attributes }}>
+          {%- if block.settings.perk_1 != blank -%}<li>{{ block.settings.perk_1 }}</li>{%- endif -%}
+          {%- if block.settings.perk_2 != blank -%}<li>{{ block.settings.perk_2 }}</li>{%- endif -%}
+          {%- if block.settings.perk_3 != blank -%}<li>{{ block.settings.perk_3 }}</li>{%- endif -%}
+        </ul>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>

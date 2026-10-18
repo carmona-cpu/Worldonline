@@ -1,0 +1,97 @@
+{%- comment -%}
+  Tarjeta de producto (diseño NORTE).
+  Parámetros:
+  - product: objeto product (si está vacío se muestra una tarjeta de ejemplo)
+  - index: posición, para escalonar la animación
+  - sample: número de imagen de ejemplo (1-6) cuando no hay producto
+  - quick_add: true para mostrar el botón de agregar rápido
+{%- endcomment -%}
+{%- liquid
+  assign delay = index | default: 0 | times: 80
+  assign color_names = settings.color_option_names | downcase | split: ','
+-%}
+<article class="card rv" style="animation-delay:{{ delay }}ms">
+  {%- if product != blank -%}
+    {%- liquid
+      assign tags_down = product.tags | join: ',' | downcase | split: ','
+      assign is_new = false
+      if tags_down contains 'nuevo' or tags_down contains 'new'
+        assign is_new = true
+      endif
+      assign color_option = nil
+      for option in product.options_with_values
+        assign oname = option.name | strip | downcase
+        for cn in color_names
+          assign c = cn | strip
+          if oname == c
+            assign color_option = option
+          endif
+        endfor
+      endfor
+      assign variant = product.selected_or_first_available_variant
+    -%}
+    <div class="shot">
+      {%- if product.available == false -%}
+        <span class="tag tag--soft">{{ 'products.sold_out' | t }}</span>
+      {%- elsif product.compare_at_price > product.price -%}
+        <span class="tag">{{ 'products.sale' | t }}</span>
+      {%- elsif is_new -%}
+        <span class="tag">{{ 'products.new' | t }}</span>
+      {%- endif -%}
+      <a href="{{ product.url }}" aria-label="{{ product.title | escape }}">
+        {%- if product.featured_media -%}
+          {%- assign img_alt = product.featured_media.alt | default: product.title | escape -%}
+          {{ product.featured_media | image_url: width: 960 | image_tag: loading: 'lazy', widths: '320, 480, 640, 960', sizes: '(min-width: 1000px) 25vw, 50vw', alt: img_alt }}
+        {%- else -%}
+          {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </a>
+      {%- if quick_add and product.available -%}
+        {%- if product.has_only_default_variant -%}
+          <form method="post" action="{{ routes.cart_add_url }}" data-product-form>
+            <input type="hidden" name="id" value="{{ variant.id }}">
+            <input type="hidden" name="quantity" value="1">
+            <button type="submit" class="quick">{{ 'products.quick_add' | t }}</button>
+          </form>
+        {%- else -%}
+          <a class="quick" href="{{ product.url }}">{{ 'products.choose_options' | t }}</a>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+    <div class="meta">
+      <b><a href="{{ product.url }}">{{ product.title }}</a></b>
+      <span>
+        {%- if product.compare_at_price > product.price -%}<s>{{ product.compare_at_price | money }}</s>{%- endif -%}
+        {%- if product.price_varies -%}
+          {%- assign min_price = product.price_min | money -%}
+          {{ 'products.from_price' | t: price: min_price }}
+        {%- else -%}
+          {{ product.price | money }}
+        {%- endif -%}
+      </span>
+    </div>
+    <div class="meta meta--soft">
+      <span>
+        {%- if color_option -%}
+          {{ 'products.colors_count' | t: count: color_option.values.size }}
+        {%- else -%}
+          {{ product.vendor }}
+        {%- endif -%}
+      </span>
+      {%- if color_option -%}
+        <div class="swatches">
+          {%- for value in color_option.values limit: 6 -%}
+            <i class="sw" style="{% render 'swatch-style', value: value %}" title="{{ value | escape }}"></i>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  {%- else -%}
+    {%- assign sample_img = 'sample-' | append: sample | append: '.webp' -%}
+    <div class="shot">
+      <img src="{{ sample_img | asset_url }}" alt="{{ 'products.sample_product' | t }}" loading="lazy" width="960" height="1200">
+    </div>
+    <div class="meta"><b>{{ 'products.sample_product' | t }}</b><span>{{ 4800 | money }}</span></div>
+    <div class="meta meta--soft"><span>{{ 'products.sample_hint' | t }}</span></div>
+  {%- endif -%}
+</article>

@@ -1,0 +1,16 @@
+{
+  "current": "Default",
+  "presets": {
+    "Default": {
+      "color_paper": "#ffffff",
+      "color_ink": "#141312",
+      "color_ink_soft": "#6b6762",
+      "color_line": "#e7e4df",
+      "color_mist": "#f4f3f0",
+      "color_hero": "#3a2a1f",
+      "color_on_dark": "#f5efe6",
+      "cart_type": "drawer",
+      "free_shipping_threshold": 150
+    }
+  }
+}

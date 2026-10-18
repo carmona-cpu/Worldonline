@@ -1,0 +1,20 @@
+{
+  "type": "header",
+  "name": "Encabezado",
+  "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "settings": {
+        "text": "Envío gratis en pedidos de más de $150 · Devoluciones gratis por 30 días"
+      }
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "wordmark": "SKYSTORE",
+        "menu": "main-menu"
+      }
+    }
+  },
+  "order": ["announcement", "header"]
+}

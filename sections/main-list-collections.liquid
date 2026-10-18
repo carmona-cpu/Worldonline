@@ -1,0 +1,26 @@
+<section class="section" style="padding-top:clamp(32px,5vw,64px)" {{ section.shopify_attributes }}>
+  <div class="wrap">
+    <div class="sec-head"><h1>{{ 'collections.all' | t }}</h1></div>
+    <div class="grid">
+      {%- for collection in collections -%}
+        <article class="card rv" style="animation-delay:{{ forloop.index0 | times: 80 }}ms">
+          <a class="shot" href="{{ collection.url }}">
+            {%- if collection.featured_image -%}
+              {{ collection.featured_image | image_url: width: 800 | image_tag: loading: 'lazy', widths: '320, 480, 640, 800', sizes: '(min-width: 1000px) 25vw, 50vw', style: 'object-fit:cover' }}
+            {%- else -%}
+              {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </a>
+          <div class="meta"><b><a href="{{ collection.url }}">{{ collection.title }}</a></b><span>{{ collection.products_count }}</span></div>
+        </article>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Lista de colecciones",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,76 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "eyebrow": "",
+        "show_description": true,
+        "show_quantity": true,
+        "show_dynamic_checkout": false
+      },
+      "blocks": {
+        "spec1": {
+          "type": "spec",
+          "settings": {
+            "label": "Peso de la tela",
+            "metafield": "custom.peso_tela"
+          }
+        },
+        "spec2": {
+          "type": "spec",
+          "settings": {
+            "label": "Composición",
+            "metafield": "custom.composicion"
+          }
+        },
+        "spec3": {
+          "type": "spec",
+          "settings": {
+            "label": "Corte",
+            "metafield": "custom.corte"
+          }
+        },
+        "spec4": {
+          "type": "spec",
+          "settings": {
+            "label": "Hecho en",
+            "metafield": "custom.hecho_en"
+          }
+        },
+        "note": {
+          "type": "note",
+          "settings": {
+            "text": "Corte amplio; pide una talla menos para un ajuste más cerca."
+          }
+        },
+        "perks": {
+          "type": "perks",
+          "settings": {
+            "perk_1": "Sale en 1–2 días hábiles",
+            "perk_2": "Devoluciones gratis por 30 días",
+            "perk_3": "Lavar en frío, secar colgada"
+          }
+        }
+      },
+      "block_order": [
+        "spec1",
+        "spec2",
+        "spec3",
+        "spec4",
+        "note",
+        "perks"
+      ]
+    },
+    "more": {
+      "type": "product-recommendations",
+      "settings": {
+        "heading": "También te puede gustar",
+        "limit": 4
+      }
+    }
+  },
+  "order": [
+    "main",
+    "more"
+  ]
+}

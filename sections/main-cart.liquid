@@ -1,0 +1,37 @@
+<section class="section" style="padding-top:clamp(32px,5vw,64px)" {{ section.shopify_attributes }}>
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <span class="label">{{ 'cart.items_count' | t: count: cart.item_count }}</span>
+        <h1>{{ 'cart.title' | t }}</h1>
+      </div>
+      <a href="{{ routes.all_products_collection_url }}">{{ 'cart.continue' | t }}</a>
+    </div>
+    <div class="cart-page" id="CartPage">
+      <div>
+        {% render 'cart-lines' %}
+      </div>
+      {%- if cart.item_count > 0 -%}
+        <div class="cart-summary">
+          {%- if section.settings.show_note -%}
+            <form action="{{ routes.cart_url }}" method="post" class="cart-note">
+              <label class="label" for="CartNote">{{ 'cart.note' | t }}</label>
+              <textarea id="CartNote" name="note" data-cart-note>{{ cart.note }}</textarea>
+              <button type="submit" name="update" class="label" style="justify-self:start;margin-top:6px;text-decoration:underline">{{ 'cart.save_note' | t }}</button>
+            </form>
+          {%- endif -%}
+          {% render 'cart-totals' %}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Carrito",
+  "settings": [
+    { "type": "checkbox", "id": "show_note", "label": "Permitir nota del pedido", "default": true }
+  ]
+}
+{% endschema %}

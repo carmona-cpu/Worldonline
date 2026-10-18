@@ -1,0 +1,19 @@
+<article class="section" style="padding-top:clamp(32px,5vw,64px)" {{ section.shopify_attributes }}>
+  <div class="wrap page-narrow">
+    <div class="sec-head">
+      <div>
+        <span class="label">{{ article.published_at | date: format: 'date' }}</span>
+        <h1>{{ article.title }}</h1>
+      </div>
+    </div>
+    {%- if article.image -%}
+      <div style="margin-bottom:32px">{{ article.image | image_url: width: 1400 | image_tag: widths: '720, 1000, 1400', sizes: '(min-width: 800px) 760px, 100vw' }}</div>
+    {%- endif -%}
+    <div class="rte">{{ article.content }}</div>
+    <p style="margin-top:40px"><a class="label" href="{{ blog.url }}">← {{ blog.title }}</a></p>
+  </div>
+</article>
+
+{% schema %}
+{ "name": "Artículo", "settings": [] }
+{% endschema %}

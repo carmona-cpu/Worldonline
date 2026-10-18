@@ -1,0 +1,21 @@
+<div class="drawer-inner" id="CartDrawerInner">
+  <div class="d-head">
+    <b>{{ 'cart.title' | t }} ({{ cart.item_count }})</b>
+    <button type="button" data-cart-close>{{ 'general.close' | t }}</button>
+  </div>
+  <div class="d-body">
+    {% render 'cart-lines' %}
+  </div>
+  <div class="d-foot">
+    {% render 'cart-totals' %}
+    <a href="{{ routes.cart_url }}" class="label" style="text-align:center">{{ 'cart.view_cart' | t }}</a>
+  </div>
+</div>
+<span hidden data-cart-count>{{ cart.item_count }}</span>
+
+{% schema %}
+{
+  "name": "Carrito lateral",
+  "settings": []
+}
+{% endschema %}
